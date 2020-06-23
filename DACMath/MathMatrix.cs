@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace DACMath
 {
@@ -39,9 +40,18 @@ namespace DACMath
             return mm;
         }
 
-        public void LoadMatrix(double[][] data)
+        public static MathMatrix CreateMatrix(int r, int c, double[] data)
         {
-            Elements = data;
+            MathMatrix mm = new MathMatrix
+            {
+                RowCount = r,
+                ColCount = c,
+                Elements = new double[r][]
+            };
+            for (int rowidx = 0; rowidx < r; ++rowidx)
+                mm.Elements[rowidx] = (new ArraySegment<double>(data, rowidx * c, c)).ToArray();
+            
+            return mm;
         }
 
         public static MathMatrix CreateMatrix(int r, int c, double initval)
@@ -54,13 +64,18 @@ namespace DACMath
             };
             for (int rowidx = 0; rowidx < r; ++rowidx)
                 mm.Elements[rowidx] = Enumerable.Repeat(initval, c).ToArray();
-            
+
             return mm;
         }
 
         public override string ToString()
         {
             return base.ToString();
+        }
+
+        public void LoadMatrix(double[][] data)
+        {
+            Elements = data;
         }
 
         public MathMatrix ColumnVector(int c)
