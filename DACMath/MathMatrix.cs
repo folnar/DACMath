@@ -8,8 +8,6 @@ namespace DACMath
         public int RowCount { get; set; }
         public int ColCount { get; set; }
 
-        // THIS RECTANGULAR ARRAY CAN BE CHANGED TO A JAGGED ARRAY
-        // IF PERFORMANCE BECOMES AN ISSUE.
         private double[][] Elements;
 
         public double this[int r, int c]
@@ -50,7 +48,7 @@ namespace DACMath
             };
             for (int rowidx = 0; rowidx < r; ++rowidx)
                 mm.Elements[rowidx] = (new ArraySegment<double>(data, rowidx * c, c)).ToArray();
-            
+
             return mm;
         }
 
@@ -78,14 +76,39 @@ namespace DACMath
             Elements = data;
         }
 
-        public MathMatrix ColumnVector(int c)
+        public MathMatrix ColumnVector(int columnindex)
         {
             MathMatrix retval = CreateMatrix(RowCount, 1);
 
-            for (int rowidx = 0; rowidx < RowCount; ++rowidx)
-                retval[rowidx, 0] = Elements[rowidx][c];
+            for (int row = 0; row < RowCount; ++row)
+                retval[row, 0] = Elements[row][columnindex];
 
             return retval;
+        }
+
+        public double[] ColumnVectorArray(int columnindex)
+        {
+            double[] retval = new double[RowCount];
+
+            for (int row = 0; row < RowCount; ++row)
+                retval[row] = Elements[row][columnindex];
+
+            return retval;
+        }
+
+        public MathMatrix RowVector(int rowindex)
+        {
+            MathMatrix retval = CreateMatrix(1, ColCount);
+
+            for (int col = 0; col < ColCount; ++col)
+                retval[0, col] = Elements[rowindex][col];
+
+            return retval;
+        }
+
+        public double[] RowVectorArray(int r)
+        {
+            return Elements[r];
         }
 
         public void AssignColumn(MathMatrix m, int c)

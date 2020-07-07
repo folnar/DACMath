@@ -59,6 +59,18 @@ namespace DACMath
             return difference;
         }
 
+        // THE DOMAIN OF THIS FUNCTION AS OF NOW DOES NOT INCLUDE COMPLEX NUMBERS.
+        public static MathMatrix Sqrt_Elmtwise(MathMatrix A)
+        {
+            MathMatrix sqrt = MathMatrix.CreateMatrix(A.RowCount, A.ColCount);
+
+            for (int r = 0; r < A.RowCount; ++r)
+                for (int c = 0; c < A.ColCount; ++c)
+                    sqrt[r, c] = Math.Sqrt(A[r, c]);
+
+            return sqrt;
+        }
+
         public static MathMatrix Identity(int dim)
         {
             MathMatrix retval = MathMatrix.CreateMatrix(dim, dim, 0);
