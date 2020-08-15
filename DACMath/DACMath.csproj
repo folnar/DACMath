@@ -48,4 +48,8 @@
     <Compile Include="Sequences.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) D:\customlibs\$(TargetFileName)
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild" D:\Source\VSRepos\BGPKalmanFilter\BGPKalmanFilter.sln /t:Rebuild /p:Configuration=Debug</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -116,5 +116,11 @@ namespace DACMath
             for (int rowidx = 0; rowidx < RowCount; ++rowidx)
                 Elements[rowidx][c] = m[rowidx, 0];
         }
+
+        public void AssignRow(MathMatrix m, int r)
+        {
+            for (int colidx = 0; colidx < ColCount; ++colidx)
+                Elements[r][colidx] = m[0, colidx];
+        }
     }
 }

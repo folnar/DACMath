@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DACMath
 {
@@ -6,13 +7,13 @@ namespace DACMath
     {
         public static MathMatrix SteppedSequence(double begin, double end, double step)
         {
-            List<double> seq = new List<double>();
-            for (double idx = begin; idx <= end; idx += step)
+            List<decimal> seq = new List<decimal>();
+            for (decimal idx = Convert.ToDecimal(begin); idx <= Convert.ToDecimal(end); idx += Convert.ToDecimal(step))
                 seq.Add(idx);
 
             MathMatrix retval = MathMatrix.CreateMatrix(1, seq.Count);
             for (int idx = 0; idx < seq.Count; ++idx)
-                retval[0, idx] = seq[idx];
+                retval[0, idx] = Convert.ToDouble(seq[idx]);
 
             return retval;
         }
